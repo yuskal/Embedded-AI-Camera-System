@@ -1,0 +1,54 @@
+Information
+-- CONNECT WIFI CHIP TO JETSON!!!
+-- You must not be connected to mobile data during communication!
+-- Remove cling film and tape after each use!
+-- To connect the camera to the newly purchased Jetson Orin Nano, you must set the Jetson Orin Nano CSI Hardware to IMX219 Dual!
+-- After many restarts, the camera stopped working.
+-- If the camera crashes, the Camarray HAT (or Jetson, not yet fully analyzed) blocks camera detection, so we don't have /dev/video0. However, if you replace one of the cameras, it will work.
+-- You must connect USB-C power to the Camarray HAT of the Jetson Orin Nano!
+-- Glance is a function that YK-AE uses to check if the cameras are working. At the beginning of each recording, a short clip is recorded to check if it is saved (i.e., if the file exists).
+-- Log rotation is implemented analogously, meaning we delete old log entries to keep the file size from becoming too large.
+-- We use HandyLog for communication, and JetLog allows us to view important messages from the YK-AE.
+-- We communicate with the YK-AE via Wi-Fi (the YK-AE acts as an access point).
+-- The YK-AE continuously checks HandyLog, thus detecting any changes and executing commands accordingly.
+-- You must first connect to the access point via Wi-Fi!
+-- JetLog:
+• This is a log file written by the Jetson Nano and transferred to the mobile device.
+• JetLog is read-only for users, as it is only a report from the YK-AE.
+• The log contains only important flags such as { IsRecording, IsSleeping, Glance Test, Error Logs }.
+-- HandyLog:
+• This is a log file written by the phone and transferred to the Jetson Nano.
+• The user can signal actions to YK-AE by setting the corresponding flags. YK-AE resets the flags, indicating that it has received your input.
+• Setting Pull_Log to True signals YK-AE to send its log to the phone.
+Setting Snapshot to True makes YK-AE record a short video and send it to the phone. Before taking a snapshot, delete snapshot.mkv on the phone, then call "am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/snapshot.mkv" (so that the old video is also deleted from the gallery), then take a snapshot, and then call "am broadcast..." again so that the video appears in the gallery this time.
+• { StartRecording, StopRecording, GoSleep, Pull_Log, Snapshot }
+
+Jetson Nano
+-- CONNECT WIFI CHIP TO JETSON NANO
+-- Ping: curl -k -u yusuf:Yusuf6161_ https://192.168.1.1:8443/
+-- Send HandyLog (send command): on Termux, type "cat HandyLog.json | nc 192.168.1.1 5000" followed by "^C", thus transferring JSON from the phone to the Jetson Nano
+-- Download data: curl -k -u yusuf:Yusuf6161_ https://192.168.1.1:8443/log.txt -o log.txt
+-- SSH communication via cable on Termux with { ssh -p 8022 yusuf@127.0.0.1, exit } (this only seems to work if you start SSH in the YK-AE terminal)
+
+YK-AE Failures
+Definition: Failures must be resolved externally before we can go live.
+-- Overheating:
+• if CPU temperature sensor > 96°C or GPU > 96°C or PMIC > 95°C
+• Action = suspend YK-AE
+
+YK-AE Scripts:
+-- ROOT YKAE_Root.py:
+Bootstrap = is a systemd service named "my_service.service"
+Logic = has root access, starts essential initializations, and tracks sensor data that has root access permission
+
+-- yusuf YKAE.py:
+Bootstrap = is a systemd service named "ykae.service"
+Logic = is the main file and responsible for recording and the YK-AE application; it starts the listener so the user can send HandyLog.json to it via Wi-Fi
+
+-- yusuf YKAE_Sensor.py:
+Bootstrap = is started by YKAE.py
+Logic = tracks sensor data that does not require root access
+
+-- yusuf YKAE_Server.py:
+Bootstrap = is started by YKAE.py
+Logic = starts the server so the user can download data (logs, recordings, etc.) from the YK-AE

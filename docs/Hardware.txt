@@ -1,0 +1,173 @@
+HARDWARE
+Components
+Case:
+-- Price: ?
+
+Jetson Orin Nano Bundle:
+-- Name: JETSON ORIN 3010 NVIDIA Jetson Orin Nano Bundle, 6x 1.5 GHz, 4 GB DDR5
+-- Price: €534.50
+
+Slide Switch:
+-- Price: €4.49
+
+Start Button:
+-- Horn Button
+-- Price: €1.30
+
+Bluetooth Module:
+-- Price: €1.00
+
+Blue LED:
+-- Price: €1.00
+
+Red LED:
+-- Price: €1
+
+Green LED:
+-- Price: €1
+
+Lens Extender:
+-- Name: RPI CAM 15-15
+-- Price: €4.25
+
+CameraMPX & Lens 1-4:
+-- Price: €155.56
+
+Tripod:
+-- Name: Walimex pro AIR Jumbo 730 Light Stand 730 cm
+-- Price: €173.33
+
+PM Module:
+-- Name: RRC-PMM20
+-- Price: €49.60
+
+Buck Converter:
+-- Name: DC 10-72V to 5V Step Down Converter Regulator 5A 25W Power Adapter Buck Converter Waterproof DC-DC Step Down Module for Motorcycle
+-- Price: €13.99
+
+Battery:
+-- Name: RRC2054-2
+-- Price: €150
+
+Price: €1,100 (hardware) + €700 (case)
+
+
+
+
+Pins:
+Jetson Nano Board with Module:
+-- J8 - Fan Header = connected to Jetson Nano fan
+-- 1st CSI-2 Connector = connected to the Out pin of the CameraMPX
+-- 2nd CSI-2 Connector = connected to the Out pin of the CameraMPX2
+-- 3.3V Supply (1) = 3.3V
+-- 5V Supply (2) = 5V
+-- I2C1_SDA (3) = 
+-- 5V Supply (4) = 5V
+-- I2C1_SCL (5) = 
+-- GND (6) = GND
+-- UART1_TXD (8) = connected to the TX pin of the Bluetooth module
+-- GND (9) = GND
+-- UART1_RXD (10) = connected to the RX pin of the Bluetooth module
+-- UART1_RTS (11) = connected to the RTS pin of the Bluetooth module
+-- GPIO (12) = connected to red LED
+-- SPI1_SCK (13) = 
+-- GND (14) = GND
+-- GPIO (15) = connected to green LED
+-- GPIO (16) = connected to S0 of the CameraMPX (to control it)
+-- Main 3.3V Supply (17) = 3.3V
+-- GPIO (18) = connected to blue LED
+-- GPIO (19) = connected to start Btn and pull-down resistor
+-- GND (20) = GND
+-- SPI1_MISO (22) = 
+-- GND (25) = GND
+-- I2C0_SDA (27) = connected to SMBus-SDA of the PM module
+-- I2C0_SCL (28) = connected to SMBus-SCL of the PM module
+-- GND (30) = GND
+-- GPIO (33) = connected to S0 of the CameraMPX2 (to control it)
+-- GND (34) = GND
+-- UART1_CTS (36) = connected to CTS pin of the Bluetooth module
+-- SPI1_MOSI (37) = 
+-- GND (39) = GND
+-- GPIO (40) =
+
+Jetson Nano Cooler:
+-- Cable = connected to J15 of the Jetson Nano
+
+Start Button:
+-- Left = connected to VCC
+-- Right = connected to GPIO19 of the Jetson Nano
+
+Bluetooth Module:
+-- VDD = connected to VCC
+-- GND = connected to GND
+-- TX = connected to Header Pin 8 of the Jetson Nano
+-- RX = connected to Header Pin 10 of the Jetson Nano
+-- RTS = connected to Header Pin 11 of the Jetson Nano
+-- CTS = connected to Header Pin 36 of the Jetson Nano
+
+VCC Regulator Slide Switch:
+-- Connected to VCC and load. The slide switch allows you to disconnect the current to the load.
+
+LED [VCC, Main-P]
+Red LED:
+-- Anode = connected to GPIO12 of the Jetson Nano
+-- Cathode = GND
+
+Green LED:
+-- Anode = connected to GPIO15 of the Jetson Nano
+-- Cathode = GND
+
+Blue LED:
+-- Anode = connected to GPIO18 of the Jetson Nano
+-- Cathode = GND
+
+Eye [Main-P, Actuators, VCC]
+Lens 1:
+-- Cable = connected to 'Camera A' of the CameraMPX2
+
+Lens 2:
+-- Cable = connected to 'Camera B' of the CameraMPX2
+
+Lens 3:
+-- Cable = connected to 'Camera C' of the CameraMPX2
+
+Lens 4:
+-- Cable = connected to 'Camera D' of the CameraMPX2
+
+ShadowLens 1:
+-- Cable = connected to 'Camera A' of the CameraMPX
+
+ShadowLens 2:
+-- Cable = connected to 'Camera B' of the CameraMPX
+
+ShadowLens 3:
+-- Cable = connected to 'Camera C' of the CameraMPX
+
+ShadowLens 4:
+-- Cable = connected to 'Camera D' of the CameraMPX
+
+CameraMPX:
+-- Camera A = connected to ShadowLens 1
+-- Camera B = connected to ShadowLens 2
+-- Camera C = connected to ShadowLens 3
+-- Camera D = connected to ShadowLens 4
+-- GPIO (for control) = connected to GPIO16 of the Jetson Nano
+-- Out = connected to the first CSI-2 camera connector of the Jetson Nano
+
+CameraMPX2:
+-- Camera A = connected to Lens 1
+-- Camera B = connected to Lens 2
+-- Camera C = connected to Lens 3
+-- Camera D = connected to Lens 4
+-- GPIO (for control) = connected to GPIO33 of the Jetson Nano
+-- Out = connected to the second CSI-2 camera connector of the Jetson Nano
+
+VCC supply [all]
+PM module
+-- VOUT = connected to all pins/boards that require VCC
+-- GND = connected to all pins/boards that carry the return current
+-- SMBus-SCL = connected to I2C-SCL of the Jetson Nano
+-- SMBus-SDA = connected to the I2C-SDA of the Jetson Nano
+
+Battery:
+-- Connection = connected to the PM module
